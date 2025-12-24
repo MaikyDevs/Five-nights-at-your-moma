@@ -1,0 +1,5 @@
+{
+  "name": "Five Nights at React's",
+  "description": "A functional clone of the survival horror game Five Nights at Freddy's using React and Tailwind CSS.",
+  "requestFramePermissions": []
+}
