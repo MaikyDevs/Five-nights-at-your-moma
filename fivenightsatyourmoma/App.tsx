@@ -40,6 +40,9 @@ const App: React.FC = () => {
   const [lights, setLights] = useState({ left: false, right: false });
   const [jumpscareAttacker, setJumpscareAttacker] = useState<AnimatronicId>(AnimatronicId.BONNIE);
 
+  // Easter Egg State
+  const [showFranzose, setShowFranzose] = useState(false);
+
   // Power Out Sequence State
   const [powerOutStage, setPowerOutStage] = useState<'DARK' | 'FREDDY'>('DARK');
 
@@ -85,6 +88,19 @@ const App: React.FC = () => {
         };
     }
   }, [gameState]);
+
+  // --- Franzose Easter Egg Loop ---
+  useEffect(() => {
+      if (gameState !== GameState.PLAYING) return;
+
+      const franzoseInterval = setInterval(() => {
+          setShowFranzose(true);
+          playAudio(SOUNDS.WINDOW_SCARE);
+      }, 50000); // Every 50 seconds
+
+      return () => clearInterval(franzoseInterval);
+  }, [gameState]);
+
 
   // --- Game Loop Logic ---
 
@@ -196,6 +212,7 @@ const App: React.FC = () => {
     setLights({ left: false, right: false });
     setCamerasOpen(false);
     setDoorToggleCount(0);
+    setShowFranzose(false);
     
     setAnimatronics({
       [AnimatronicId.BONNIE]: { id: AnimatronicId.BONNIE, location: CameraId.CAM_1A, aiLevel: 12, timeAtDoor: 0 }, 
@@ -265,8 +282,8 @@ const App: React.FC = () => {
 
           return 0;
         }
-        // Drain rate
-        const drain = calculateUsage() * 0.2; 
+        // Drain rate (Lowered to 0.1 from 0.2 to make it easier)
+        const drain = calculateUsage() * 0.1; 
         return p - drain;
       });
     }, 1000);
@@ -347,6 +364,8 @@ const App: React.FC = () => {
                     toggleLight={(side) => setLights(l => ({ ...l, [side]: !l[side] }))}
                     onOpenCameras={handleOpenCameras}
                     animatronics={animatronics}
+                    showFranzose={showFranzose}
+                    onDismissFranzose={() => setShowFranzose(false)}
                 />
                 
                 <CameraSystem 
