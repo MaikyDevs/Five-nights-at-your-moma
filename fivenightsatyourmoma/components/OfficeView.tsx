@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { OFFICE_IMAGES, SOUNDS } from '../constants';
+import { OFFICE_IMAGES, SOUNDS, FRANZOSE_IMAGE } from '../constants';
 import { AnimatronicState, AnimatronicId } from '../types';
 
 interface OfficeViewProps {
@@ -10,6 +10,8 @@ interface OfficeViewProps {
   toggleLight: (side: 'left' | 'right') => void;
   onOpenCameras: () => void;
   animatronics: Record<AnimatronicId, AnimatronicState>;
+  showFranzose: boolean;
+  onDismissFranzose: () => void;
 }
 
 // Helper for overlapping sounds
@@ -25,7 +27,9 @@ const OfficeView: React.FC<OfficeViewProps> = ({
   toggleDoor,
   toggleLight,
   onOpenCameras,
-  animatronics
+  animatronics,
+  showFranzose,
+  onDismissFranzose
 }) => {
   const [panX, setPanX] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -141,6 +145,28 @@ const OfficeView: React.FC<OfficeViewProps> = ({
                     filter: `brightness(${brightness})`
                 }}
             />
+        )}
+
+        {/* --- FRANZOSE EASTER EGG --- */}
+        {showFranzose && (
+          <div 
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 z-[55] cursor-pointer animate-in fade-in zoom-in duration-300"
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent light/door interactions
+              onDismissFranzose();
+            }}
+          >
+            <div className="relative">
+              <img 
+                src={FRANZOSE_IMAGE} 
+                alt="Franzose" 
+                className="h-[500px] object-contain drop-shadow-2xl"
+              />
+              <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-white text-black font-vt323 text-2xl px-4 py-2 rounded-xl border-4 border-black whitespace-nowrap after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-[10px] after:border-transparent after:border-t-black">
+                i am franzose
+              </div>
+            </div>
+          </div>
         )}
 
         {/* --- LEFT WALL BUTTONS --- */}
