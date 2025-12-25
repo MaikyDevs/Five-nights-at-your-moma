@@ -18,6 +18,9 @@ export const MAP_IMAGE = `${ASSET_BASE_URL}/Office/Map/145.png`;
 export const MENU_NORMAL = `${ASSET_BASE_URL}/Static%20%26%20Menu/Menu/431.png`;
 export const NEWSPAPER_IMAGE = "https://raw.githubusercontent.com/MaikyDevs/Fnaftextures/main/yay/574.png";
 
+// Easter Egg
+export const FRANZOSE_IMAGE = "https://raw.githubusercontent.com/MaikyDevs/Fnaftextures/main/yay/IMG_1754.jpg";
+
 export const MENU_TWITCH_FRAMES = [
   `${ASSET_BASE_URL}/Static%20%26%20Menu/Menu/440.png`,
   `${ASSET_BASE_URL}/Static%20%26%20Menu/Menu/441.png`,
@@ -102,5 +105,5 @@ export const JUMPSCARE_IMAGES = {
   FOXY: `https://i.imgur.com/2J5Qg3x.gif`,
 };
 
-export const HOUR_LENGTH_MS = 30000; 
+export const HOUR_LENGTH_MS = 20000; // Speed up time (20s per hour)
 export const TICK_RATE_MS = 3000;
